@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
-import app from "../app.js";
-import connectDB from "../config/database.js";
+import app from "../app.js"; // Goes UP one level to src/app.js
+import connectDB from "../config/database.js"; // Goes UP one level to src/config
 
 dotenv.config();
 
@@ -8,9 +8,13 @@ let isConnected = false;
 
 const connectDatabase = async () => {
   if (!isConnected) {
-    await connectDB();
-    isConnected = true;
-    console.log("✅ MongoDB Connected");
+    try {
+      await connectDB();
+      isConnected = true;
+      console.log("✅ MongoDB Connected");
+    } catch (error) {
+      console.error("❌ DB Connection Error", error);
+    }
   }
 };
 
